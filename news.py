@@ -1,19 +1,19 @@
 import psycopg2
 
 # Below we set the 3 questions and the SQL queries to be run
-qOne = "What are the most popular three articles of all time?"
+questionOne = "What are the most popular three articles of all time?"
 
 queryOne = ("select title, count(*) as num from articles "
             "join log on path like CONCAT('%',slug) group by title "
             "order by num desc limit 3")
 
-qTwo = "Who are the most popular article authors of all time?"
+questionTwo = "Who are the most popular article authors of all time?"
 
 queryTwo = ("select name, count(path) as num from authors "
             "join articles on authors.id = author join log "
             "on path like CONCAT('%', slug) group by name order by num desc")
 
-qThree = "On which days did more than 1% of requests lead to errors?"
+questionThree = "On which days did more than 1% of requests lead to errors?"
 
 queryThree = ("select dte, dayavg from ("
               "select dte, (sum(dayerror) / (select count(*) "
@@ -47,6 +47,6 @@ def printAltResult(results, question):
         print ('\t' + str(result[0]) + " — " + str(round((result[1]*100), 2)) +
                '%')
 
-printResult(openTable(queryOne), qOne)
-printResult(openTable(queryTwo), qTwo)
-printAltResult(openTable(queryThree), qThree)
+printResult(openTable(queryOne), questionOne)
+printResult(openTable(queryTwo), questionTwo)
+printAltResult(openTable(queryThree), questionThree)
