@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 import psycopg2
 
 # Below we set the 3 questions and the SQL queries to be run
